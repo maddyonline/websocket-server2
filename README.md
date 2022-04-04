@@ -1,3 +1,15 @@
+# Run
+
+```
+node .
+```
+
+# Download heart rate
+
+```
+node script.js
+````
+
 # Setup
 
 Install Node Version Manager: https://github.com/nvm-sh/nvm and setup a latest enough version of node.

@@ -15,3 +15,13 @@ node .
 ```
 
 
+# How to start systemd service
+```
+sudo cp heart-rate.service /lib/systemd/system/heart-rate.service
+sudo systemctl daemon-reload
+sudo systemctl enable heart-rate
+sudo systemctl start heart-rate
+
+# check logs
+journalctl -fu heart-rate
+```

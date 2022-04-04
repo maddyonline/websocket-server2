@@ -16,6 +16,7 @@ node .
 
 
 # How to start systemd service
+
 ```
 sudo cp heart-rate.service /lib/systemd/system/heart-rate.service
 sudo systemctl daemon-reload
@@ -24,4 +25,22 @@ sudo systemctl start heart-rate
 
 # check logs
 journalctl -fu heart-rate
+```
+
+The `heart-rate.service` file is as follows.
+```
+[Unit]
+Description=heart-rate
+Documentation=https://github.com/maddyonline/websocket-server2
+After=network.target
+
+[Service]
+Type=simple
+User=ubuntu
+ExecStart=/home/ubuntu/.nvm/versions/node/v14.19.0/bin/node index.js
+WorkingDirectory=/home/ubuntu/websocket-server2
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
 ```

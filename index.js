@@ -16,7 +16,7 @@ wss.on("connection", function connection(ws) {
   ws.on("message", async function message(data) {
     console.log("received: %s", data);
     await docRef.set({
-      data,
+      data: `${data}`,
       from: "server",
     });
   });

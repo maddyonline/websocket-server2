@@ -11,6 +11,7 @@
   "author": "Madhav Jha",
   "license": "ISC",
   "dependencies": {
+    "firebase-admin": "^10.0.2",
     "ws": "^8.5.0"
   }
 }

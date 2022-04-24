@@ -11,15 +11,27 @@ async function main() {
   const db = getFirestore();
   const docRef = db.collection("heart-rates").doc("maddy-history");
   const data = (await docRef.get()).data();
-  const heartRates = Object.entries(data)
-    .sort((a, b) => new Date(a[0]) - new Date(b[0]))
-    .map(([_, x]) => x)
-    .flat()
-    .map(parseFloat)
-    .filter((x) => !isNaN(x));
+  const heartRates = Object.entries(data);
 
-  console.log(heartRates);
-  fs.writeFileSync("heart-rates.tsv", heartRates.join("\t"));
+  const flatEntries = [];
+  for (const x of heartRates) {
+    const [ts, entries] = x;
+    const start = new Date(ts).getTime();
+    for (let i = 0; i < entries.length; i++) {
+      if (entries[i] !== "watch") {
+        flatEntries.push([
+          JSON.parse(JSON.stringify(new Date(start + i * 5000))),
+          entries[i],
+        ]);
+      }
+    }
+
+  }
+
+  fs.writeFileSync(
+    "heart-rates.tsv",
+    flatEntries.map((x) => x.join("\t")).join("\n")
+  );
 }
 
 main();
